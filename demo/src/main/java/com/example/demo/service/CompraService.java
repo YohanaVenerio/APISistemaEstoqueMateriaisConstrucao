@@ -33,7 +33,7 @@ public class CompraService {
         compra.setFornecedor(fornecedor);
         compra.setProduto(produto);
         compra.setQuantidade(quantidade);
-        compra.setValorTotal(produto.getPreco() * quantidade); 
+        compra.setValorTotal(produto.getPrecoUnitario() * quantidade); 
         return compraRepository.save(compra);
     }
 
@@ -57,7 +57,7 @@ public class CompraService {
     public Compra atualizar(Long id, int novaQuantidade) {
         Compra compra = buscarPorId(id);
         compra.setQuantidade(novaQuantidade);
-        compra.setValorTotal(compra.getProduto().getPreco() * novaQuantidade);
+        compra.setValorTotal(compra.getProduto_Id().getPreco() * novaQuantidade);
         return compraRepository.save(compra);
     }
 
