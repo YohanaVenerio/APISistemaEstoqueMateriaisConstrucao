@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +18,7 @@ import lombok.Setter;
 
 @Data
 @Entity
-@Table(name = "estoque")
+@Table(name = "produtos")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class Produto {
@@ -27,7 +29,7 @@ public class Produto {
     @Column(nullable = false)
     private String nome;
     
-    @Column(nullable = false)
+    @Column(nullable = false , columnDefinition = "TEXT")
     private String descricao;
 
     @Column(nullable = false)
@@ -36,7 +38,8 @@ public class Produto {
     @Column(nullable = false)
     private BigDecimal precoUnitario;
 
-    @Column(nullable = false, unique = true)
-    private Long categoriaId;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
     
 }

@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Data
 @Entity
-@Table(name = "estoque")
+@Table(name = "fornecedores")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 
@@ -29,7 +29,7 @@ public class Fornecedor {
     @Column(nullable = false, unique = true)
     private String cnpj;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String telefone;
 
     @Column(nullable = false,unique = true)

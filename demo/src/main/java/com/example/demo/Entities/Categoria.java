@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Data
 @Entity
-@Table(name = "estoque")
+@Table(name = "categorias")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 

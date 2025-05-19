@@ -1,7 +1,6 @@
 package com.example.demo.Entities;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -9,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ import lombok.Setter;
 
 @Data
 @Entity
-@Table(name = "estoque")
+@Table(name = "compras")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 
@@ -27,11 +28,13 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private Long fornecedor_Id;
-    
-    @Column(nullable = false, unique = true)
-    private Long produto_Id;
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id", nullable = false)
+    private Fornecedor fornecedor;
+
+    @ManyToOne
+    @JoinColumn(name = "produto_id", nullable = false)
+    private Produto produto;
 
     @Column(nullable = false)
     private Integer quantidade;
@@ -40,5 +43,5 @@ public class Compra {
     private BigDecimal valorTotal;
 
     @Column(nullable = false)
-    private LocalDateTime dataVenda;
+    private LocalDateTime dataCompra;
 }
