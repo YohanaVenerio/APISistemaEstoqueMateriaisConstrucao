@@ -1,0 +1,8 @@
+Trabalho Api Sistema Estoque Material Construção
+
+Participantes: Any, Artur e Yohana
+
+Divisão:
+Any - Repositórios, Controller, Mapper
+Artur - Controller, Service, Mapper
+Yohana - Entidades, DTO
