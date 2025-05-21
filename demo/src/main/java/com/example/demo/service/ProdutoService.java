@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
 
     @Autowired
     private IProdutoRepository produtoRepository;
+
+    public Produto salvar(Produto produto){
+        return produtoRepository.save(produto);
+    }
 
     public Produto cadastar(Produto produto) {
         return produtoRepository.save(produto);
@@ -21,19 +26,19 @@ public class ProdutoService {
         return produtoRepository.findAll();
     }
 
-    public Produto buscarPorId(Long id) {
-        return produtoRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
+    public Optional<Produto> buscarPorId(Long id){
+        return produtoRepository.findById(id);
     }
-
     public Produto atualizar(Long id, Produto novoProduto) {
-        Produto produto = buscarPorId(id);
-        produto.setNome(novoProduto.getNome());
-        produto.setDescricao(novoProduto.getDescricao());
-        produto.setQuantidade(novoProduto.getQuantidade());
-        produto.setPrecoUnitario(novoProduto.getPrecoUnitario());
-        produto.setCategoriaId(novoProduto.getCategoriaId());
-        return produtoRepository.save(produto);
+        return produtoRepository.findById(id)
+        .map(produto -> {
+            produto.setNome(novoProduto.getNome());
+            produto.setDescricao(novoProduto.getDescricao());
+            produto.setQuantidade(novoProduto.getQuantidade());
+            produto.setPrecoUnitario(novoProduto.getPrecoUnitario());
+            produto.setCategoria(novoProduto.getCategoria());
+            return produtoRepository.save(produto);
+        }).orElseThrow(() -> new RuntimeException("Produto não Encontrado"));
     }
 
     public void deletar(Long id) {
