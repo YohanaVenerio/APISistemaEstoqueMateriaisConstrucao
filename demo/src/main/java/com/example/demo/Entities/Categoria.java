@@ -27,6 +27,6 @@ public class Categoria {
     private String nome;
     
     @Column(nullable = false)
-    private String descrição;
+    private String descricao;
 }
 
