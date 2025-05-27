@@ -16,12 +16,12 @@ public class ProdutoDTO {
     @NotBlank(message = "A descrição é obrigatória")
     private String descricao;
 
-    @NotNull(message = "Aquantidade é obrigatória")
+    @NotNull(message = "A quantidade é obrigatória")
     @Min(value = 0, message = "A quantidade não pode ser negativa")
     private Integer quantidade;
 
     @NotNull(message = "O preço unitário é obrigatório")
-    @DecimalMin(value = "0.0", inclusive = false, message = "O prelo deve ser maior que zero")
+    @DecimalMin(value = "0.0", inclusive = false, message = "O preço deve ser maior que zero")
     private BigDecimal precoUnitario;
 
     @NotNull(message = "A categoria é obrigatória")
