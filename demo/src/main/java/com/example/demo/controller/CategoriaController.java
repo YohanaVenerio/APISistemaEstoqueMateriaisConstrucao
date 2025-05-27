@@ -41,8 +41,8 @@ public class CategoriaController {
 
     //Remover
     @DeleteMapping("/{id}")
-    public void remover(@PathVariable Long id) {
-        categoriaService.remove(id);
+    public void deletar(@PathVariable Long id) {
+        categoriaService.deletar(id);
     }
 
     //listar categoria com seus produtos
