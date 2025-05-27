@@ -44,4 +44,5 @@ public class Compra {
 
     @Column(nullable = false)
     private LocalDateTime dataCompra;
+
 }
