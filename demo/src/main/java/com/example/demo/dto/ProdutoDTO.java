@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 public class ProdutoDTO {
-    private Long Id;
+    private Long id;
 
     @NotBlank(message = "O nome é obrigatório")
-    private String Nome;
+    private String nome;
 
     @NotBlank(message = "A descrição é obrigatória")
     private String descricao;
@@ -26,4 +26,53 @@ public class ProdutoDTO {
 
     @NotNull(message = "A categoria é obrigatória")
     private Long categoriaId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+       this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public BigDecimal getPrecoUnitario() {
+        return precoUnitario;
+    }
+
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
+        this.precoUnitario = precoUnitario;
+    }
+
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
 }

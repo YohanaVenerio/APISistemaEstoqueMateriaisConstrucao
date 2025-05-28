@@ -32,4 +32,63 @@ public class VendaDTO {
 
     @NotBlank(message = "A data da venda é obrigatória")
     private LocalDateTime dataVenda;
+
+    @NotBlank(message = "O status da venda é obrigatório")
+    private String statusVenda;
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    }
+
+    public Long getClienteId(){
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId){
+        this.clienteId = clienteId;
+    }
+
+    public Long getProduto(){
+        return produtoId;
+    }
+
+    public void setProdutoId(Long produtoId){
+        this.produtoId = produtoId;
+    }
+
+    public Integer getQuantidade(){
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade){
+        this.quantidade = quantidade;
+    }
+
+    public BigDecimal getValorTotal(){
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal){
+        this.valorTotal = valorTotal;
+    }
+
+    public LocalDateTime getDataVenda(){
+        return dataVenda;
+    }
+
+    public void setDataVenda(LocalDateTime dataVenda){
+        this.dataVenda = dataVenda;
+    }
+
+    public String getStatusVenda(){
+        return statusVenda;
+    }
+
+    public void setStatusVenda(String statusVenda){
+        this.statusVenda = statusVenda;
+    }
 }

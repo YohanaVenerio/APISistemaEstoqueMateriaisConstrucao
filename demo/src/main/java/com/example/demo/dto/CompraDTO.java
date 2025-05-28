@@ -31,4 +31,64 @@ public class CompraDTO {
     @NotBlank(message = "A data da Venda é obrigatória")
     private LocalDateTime dataCompra;
 
+    @NotBlank(message = "O status da compra é obrigatório")
+    private String statusCompra;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public long getFornecedorId() {
+        return fornecedorId;
+    }
+
+    public void setFornecedorId(long fornecedorId) {
+        this.fornecedorId = fornecedorId;
+    }
+
+    public Long getProdutoId() {
+        return produtoId;
+    }
+
+    public void setProdutoId(Long produtoId) {
+        this.produtoId = produtoId;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public LocalDateTime getDataCompra() {
+        return dataCompra;
+    }
+
+    public void setDataCompra(LocalDateTime dataCompra) {
+        this.dataCompra = dataCompra;
+    }
+
+    public String getStatusCompra() {
+        return statusCompra;
+    }
+
+    public void setStatusCompra(String statusCompra) {
+        this.statusCompra = statusCompra;
+    }
+    
+
 }
