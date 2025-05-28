@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.Entities.Venda;
+import com.example.demo.dto.VendaDTO;
 import com.example.demo.repository.IVendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +13,16 @@ public class VendaService {
     @Autowired
     private IVendaRepository vendaRepository;
 
-    public Venda salvar(Venda venda) {
+    public VendaDTO salvar(VendaDTO venda) {
 
         return vendaRepository.save(venda);
     }
 
-    public List<Venda> listarTodas() {
+    public List<VendaDTO> listarTodas() {
         return vendaRepository.findAll();
     }
 
-    public Venda buscarPorId(Long id) {
+    public VendaDTO buscarPorId(Long id) {
         return vendaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Venda não encontrada"));
     }

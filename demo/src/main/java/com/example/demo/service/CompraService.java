@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.Entities.Compra;
-import com.example.demo.Entities.Fornecedor;
-import com.example.demo.Entities.Produto;
+import com.example.demo.dto.CompraDTO;
+import com.example.demo.dto.FornecedorDTO;
+import com.example.demo.dto.ProdutoDTO;
 import com.example.demo.repository.ICompraRepository;
 import com.example.demo.repository.IFornecedorRepository;
 import com.example.demo.repository.IProdutoRepository;
@@ -24,13 +24,13 @@ public class CompraService {
     @Autowired
     private IProdutoRepository produtoRepository;
 
-    public Compra registrarCompra(Long fornecedorId, Long produtoId, int quantidade) {
-        Fornecedor fornecedor = fornecedorRepository.findById(fornecedorId)
+    public CompraDTO registrarCompra(Long fornecedorId, Long produtoId, int quantidade) {
+        FornecedorDTI fornecedor = fornecedorRepository.findById(fornecedorId)
                 .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
-        Produto produto = produtoRepository.findById(produtoId)
+        ProdutoDTO produto = produtoRepository.findById(produtoId)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-        Compra compra = new Compra();
+        CompraDTO compra = new CompraDTO();
         compra.setFornecedor(fornecedor);
         compra.setProduto(produto);
         compra.setQuantidade(quantidade);
@@ -38,25 +38,25 @@ public class CompraService {
         return compraRepository.save(compra);
     }
 
-    public List<Compra> listar() {
+    public List<CompraDTO> listar() {
         return compraRepository.findAll();
     }
 
-    public Compra buscarPorId(Long id) {
+    public CompraDTO buscarPorId(Long id) {
         return compraRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Compra não encontrada"));
     }
 
-    public List<Compra> listarPorFornecedor(Long fornecedorId) {
+    public List<CompraDTO> listarPorFornecedor(Long fornecedorId) {
         return compraRepository.findByFornecedorId(fornecedorId);
     }
 
-    public List<Compra> listarPorProduto(Long produtoId) {
+    public List<CompraDTO> listarPorProduto(Long produtoId) {
         return compraRepository.findByProdutoId(produtoId);
     }
 
-    public Compra atualizar(Long id, int novaQuantidade) {
-        Compra compra = buscarPorId(id);
+    public CompraDTO atualizar(Long id, int novaQuantidade) {
+        CompraDTO compra = buscarPorId(id);
         compra.setQuantidade(novaQuantidade);
         compra.setValorTotal(compra.getProduto().getPrecoUnitario().multiply(BigDecimal.valueOf(novaQuantidade)));
 

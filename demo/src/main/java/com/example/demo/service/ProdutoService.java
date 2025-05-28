@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.Entities.Produto;
-import com.example.demo.Entities.Categoria;
+import com.example.demo.dto.ProdutoDTO;
+import com.example.demo.dto.CategoriaDTO;
 import com.example.demo.repository.IProdutoRepository;
 import com.example.demo.repository.ICategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ public class ProdutoService {
     private ICategoriaRepository categoriaRepository;
 
     //Salvar produto com a verificação de categoria existente
-    public Produto salvar(Produto produto){
-        Categoria categoria = categoriaRepository.findById(produto.getCategoria().getId())
+    public ProdutoDTO salvar(ProdutoDTO produto){
+        CategoriaDTO categoria = categoriaRepository.findById(produto.getCategoria().getId())
             .orElseThrow(()->new RuntimeException("Categotia não encontarada"));
         produto.setCategoria(categoria);
         return produtoRepository.save(produto);
@@ -31,7 +31,7 @@ public class ProdutoService {
     // }
 
     //Listar todos
-    public List<Produto> listarTodos() {
+    public List<ProdutoDTO> listarTodos() {
         return produtoRepository.findAll();
     }
 
@@ -40,13 +40,13 @@ public class ProdutoService {
     // }
 
     //Buscar por ID
-    public Produto buscarPorId(Long id){
+    public ProdutoDTO buscarPorId(Long id){
         return produtoRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
     //Atualizar
-    public Produto atualizar(Long id, Produto novoProduto) {
+    public ProdutoDTO atualizar(Long id, ProdutoDTO novoProduto) {
         return produtoRepository.findById(id)
         .map(produto -> {
             produto.setNome(novoProduto.getNome());

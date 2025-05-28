@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.Entities.Compra;
+import com.example.demo.dto.CompraDTO;
 import com.example.demo.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,37 +17,37 @@ public class CompraController {
     private CompraService compraService;
 
     @PostMapping
-    public ResponseEntity<Compra> registrar(@RequestBody Map<String, Object> payload) {
+    public ResponseEntity<CompraDTO> registrar(@RequestBody Map<String, Object> payload) {
         Long fornecedorId = Long.valueOf(payload.get("fornecedorId").toString());
         Long produtoId = Long.valueOf(payload.get("produtoId").toString());
         int quantidade = Integer.parseInt(payload.get("quantidade").toString());
 
-        Compra compra = compraService.registrarCompra(fornecedorId, produtoId, quantidade);
+        CompraDTO compra = compraService.registrarCompra(fornecedorId, produtoId, quantidade);
         return ResponseEntity.ok(compra);
     }
 
     @GetMapping
-    public List<Compra> listar() {
+    public List<CompraDTO> listar() {
         return compraService.listar();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Compra> detalhar(@PathVariable Long id) {
+    public ResponseEntity<CompraDTO> detalhar(@PathVariable Long id) {
         return ResponseEntity.ok(compraService.buscarPorId(id));
     }
 
     @GetMapping("/fornecedor/{fornecedorId}")
-    public List<Compra> listarPorFornecedor(@PathVariable Long fornecedorId) {
+    public List<CompraDTO> listarPorFornecedor(@PathVariable Long fornecedorId) {
         return compraService.listarPorFornecedor(fornecedorId);
     }
 
     @GetMapping("/produto/{produtoId}")
-    public List<Compra> listarPorProduto(@PathVariable Long produtoId) {
+    public List<CompraDTO> listarPorProduto(@PathVariable Long produtoId) {
         return compraService.listarPorProduto(produtoId);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Compra> atualizar(@PathVariable Long id, @RequestBody Map<String, Integer> body) {
+    public ResponseEntity<CompraDTO> atualizar(@PathVariable Long id, @RequestBody Map<String, Integer> body) {
         int quantidade = body.get("quantidade");
         return ResponseEntity.ok(compraService.atualizar(id, quantidade));
     }

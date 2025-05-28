@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.Entities.Venda;
+import com.example.demo.dto.VendaDTO;
 import com.example.demo.service.VendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +16,17 @@ public class VendaController {
     private VendaService vendaService;
 
     @PostMapping
-    public ResponseEntity<Venda> registrar(@RequestBody Venda venda) {
+    public ResponseEntity<VendaDTO> registrar(@RequestBody VendaDTO venda) {
         return ResponseEntity.ok(vendaService.salvar(venda));
     }
 
     @GetMapping
-    public List<Venda> listar() {
+    public List<VendaDTO> listar() {
         return vendaService.listarTodas();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Venda> detalhar(@PathVariable Long id) {
+    public ResponseEntity<VendaDTO> detalhar(@PathVariable Long id) {
         return ResponseEntity.ok(vendaService.buscarPorId(id));
     }
 
