@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.VendaDTO;
-import com.example.demo.repository.IVendaRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.demo.Entities.Venda;
+import com.example.demo.dto.VendaDTO;
+import com.example.demo.mapper.VendaMapper;
+import com.example.demo.repository.IVendaRepository;
 
 @Service
 public class VendaService {
@@ -13,21 +16,25 @@ public class VendaService {
     @Autowired
     private IVendaRepository vendaRepository;
 
-    public VendaDTO salvar(VendaDTO venda) {
+    @Autowired
+    private VendaMapper vendaMapper;
 
-        return vendaRepository.save(venda);
+    public List<VendaDTO> listarTodasVendas() {
+        return vendaMapper.toDTOList(vendaRepository.findAll());
     }
 
-    public List<VendaDTO> listarTodas() {
-        return vendaRepository.findAll();
-    }
-
-    public VendaDTO buscarPorId(Long id) {
+    public VendaDTO buscarVendaPorId(Long id) {
         return vendaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Venda não encontrada"));
+                .map(vendaMapper::toDTO)
+                .orElse(null);
     }
 
-    public void deletar(Long id) {
+    public VendaDTO salvarVenda(VendaDTO vendaDTO) {
+        Venda venda = vendaMapper.toEntity(vendaDTO);
+        return vendaMapper.toDTO(vendaRepository.save(venda));
+    }
+
+    public void deletarVenda(Long id) {
         vendaRepository.deleteById(id);
     }
 }

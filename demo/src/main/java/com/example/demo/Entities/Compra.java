@@ -30,11 +30,11 @@ public class Compra {
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id", nullable = false)
-    private Fornecedor fornecedor;
+    private Long fornecedor;
 
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
-    private Produto produto;
+    private Long produto;
 
     @Column(nullable = false)
     private Integer quantidade;

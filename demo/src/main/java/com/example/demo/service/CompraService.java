@@ -1,16 +1,22 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.CompraDTO;
-import com.example.demo.dto.FornecedorDTO;
-import com.example.demo.dto.ProdutoDTO;
-import com.example.demo.repository.ICompraRepository;
-import com.example.demo.repository.IFornecedorRepository;
-import com.example.demo.repository.IProdutoRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.List;
+import com.example.demo.Entities.Compra;
+import com.example.demo.Entities.Fornecedor;
+import com.example.demo.Entities.Produto;
+import com.example.demo.dto.CompraDTO;
+import com.example.demo.dto.FornecedorDTO;
+import com.example.demo.dto.ProdutoDTO;
+import com.example.demo.mapper.CompraMapper;
+import com.example.demo.mapper.FornecedorMapper;
+import com.example.demo.mapper.ProdutoMapper;
+import com.example.demo.repository.ICompraRepository;
+import com.example.demo.repository.IFornecedorRepository;
+import com.example.demo.repository.IProdutoRepository;
 
 @Service
 public class CompraService {
@@ -24,46 +30,69 @@ public class CompraService {
     @Autowired
     private IProdutoRepository produtoRepository;
 
-    public CompraDTO registrarCompra(Long fornecedorId, Long produtoId, int quantidade) {
-        FornecedorDTI fornecedor = fornecedorRepository.findById(fornecedorId)
-                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
-        ProdutoDTO produto = produtoRepository.findById(produtoId)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    @Autowired
+    private CompraMapper compraMapper;
 
-        CompraDTO compra = new CompraDTO();
-        compra.setFornecedor(fornecedor);
-        compra.setProduto(produto);
-        compra.setQuantidade(quantidade);
-        compra.setValorTotal(produto.getPrecoUnitario().multiply(BigDecimal.valueOf(quantidade)));
-        return compraRepository.save(compra);
+    @Autowired
+    private FornecedorMapper fornecedorMapper;
+
+    @Autowired
+    private ProdutoMapper produtoMapper;
+
+    public List<CompraDTO> listarTodasCompras() {
+        return compraMapper.toDTOList(compraRepository.findAll());
     }
 
-    public List<CompraDTO> listar() {
-        return compraRepository.findAll();
-    }
-
-    public CompraDTO buscarPorId(Long id) {
+    public CompraDTO buscarCompraPorId(Long id) {
         return compraRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Compra não encontrada"));
+                .map(compraMapper::toDTO)
+                .orElse(null);
     }
 
-    public List<CompraDTO> listarPorFornecedor(Long fornecedorId) {
-        return compraRepository.findByFornecedorId(fornecedorId);
+    public CompraDTO salvarCompra(CompraDTO compraDTO) {
+        Compra compra = compraMapper.toEntity(compraDTO);
+        return compraMapper.toDTO(compraRepository.save(compra));
     }
 
-    public List<CompraDTO> listarPorProduto(Long produtoId) {
-        return compraRepository.findByProdutoId(produtoId);
-    }
-
-    public CompraDTO atualizar(Long id, int novaQuantidade) {
-        CompraDTO compra = buscarPorId(id);
-        compra.setQuantidade(novaQuantidade);
-        compra.setValorTotal(compra.getProduto().getPrecoUnitario().multiply(BigDecimal.valueOf(novaQuantidade)));
-
-        return compraRepository.save(compra);
-    }
-
-    public void deletar(Long id) {
+    public void deletarCompra(Long id) {
         compraRepository.deleteById(id);
+    }
+
+    public List<FornecedorDTO> listarTodosFornecedores() {
+        return fornecedorMapper.toDTOList(fornecedorRepository.findAll());
+    }
+
+    public FornecedorDTO buscarFornecedorPorId(Long id) {
+        return fornecedorRepository.findById(id)
+                .map(fornecedorMapper::toDTO)
+                .orElse(null);
+    }
+
+    public FornecedorDTO salvarFornecedor(FornecedorDTO fornecedorDTO) {
+        Fornecedor fornecedor = fornecedorMapper.toEntity(fornecedorDTO);
+        return fornecedorMapper.toDTO(fornecedorRepository.save(fornecedor));
+    }
+
+    public void deletarFornecedor(Long id) {
+        fornecedorRepository.deleteById(id);
+    }
+
+    public List<ProdutoDTO> listarTodosProdutos() {
+        return produtoMapper.toDTOList(produtoRepository.findAll());
+    }
+
+    public ProdutoDTO buscarProdutoPorId(Long id) {
+        return produtoRepository.findById(id)
+                .map(produtoMapper::toDTO)
+                .orElse(null);
+    }
+
+    public ProdutoDTO salvarProduto(ProdutoDTO produtoDTO) {
+        Produto produto = produtoMapper.toEntity(produtoDTO);
+        return produtoMapper.toDTO(produtoRepository.save(produto));
+    }
+
+    public void deletarProduto(Long id) {
+        produtoRepository.deleteById(id);
     }
 }
