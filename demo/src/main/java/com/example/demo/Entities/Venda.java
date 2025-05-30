@@ -31,11 +31,11 @@ public class Venda {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private Long cliente;
+    private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
-    private Long produto;
+    private Produto produto;
     
     @Column(nullable = false)
     private Integer quantidade;

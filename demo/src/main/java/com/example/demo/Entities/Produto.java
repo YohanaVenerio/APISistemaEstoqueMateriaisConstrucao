@@ -38,6 +38,6 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
-    private Long categoriaId;
+    private Categoria categoria;
     
 }
