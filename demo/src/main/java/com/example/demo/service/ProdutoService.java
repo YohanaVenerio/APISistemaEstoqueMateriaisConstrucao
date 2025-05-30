@@ -42,9 +42,24 @@ public class ProdutoService {
     }
 
     public ProdutoDTO salvarProduto(ProdutoDTO produtoDTO) {
-        Produto produto = produtoMapper.toEntity(produtoDTO);
-        return produtoMapper.toDTO(produtoRepository.save(produto));
+    Produto produto = produtoMapper.toEntity(produtoDTO);
+
+    // Verifica se a categoria foi informada corretamente
+    if (produtoDTO.getCategoriaId() == null || produtoDTO.getCategoriaId() == null) {
+        throw new IllegalArgumentException("Categoria é obrigatória");
     }
+
+    // Busca a categoria no banco (garante que é uma entidade persistida)
+    var categoria = categoriaRepository.findById(produtoDTO.getCategoriaId())
+        .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada"));
+
+    // Define a categoria persistida no produto
+    produto.setCategoria(categoria);
+
+    // Salva o produto
+    Produto salvo = produtoRepository.save(produto);
+    return produtoMapper.toDTO(salvo);
+}
 
     public void deletarProduto(Long id) {
         produtoRepository.deleteById(id);
