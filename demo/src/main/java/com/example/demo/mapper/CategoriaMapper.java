@@ -8,7 +8,7 @@ import com.example.demo.Entities.Categoria;
 import com.example.demo.dto.CategoriaDTO;
 
 @Mapper(componentModel = "spring")
-public interface CartegoriaMapper {
+public interface CategoriaMapper {
     CategoriaDTO toDTO(Categoria categoria);
 
     Categoria toEntity(CategoriaDTO categoriaDTO);

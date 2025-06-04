@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Entities.Categoria;
 import com.example.demo.dto.CategoriaDTO;
-import com.example.demo.mapper.CartegoriaMapper;
+import com.example.demo.mapper.CategoriaMapper;
 import com.example.demo.repository.ICategoriaRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class CategoriaService {
     private ICategoriaRepository categoriaRepository;
 
     @Autowired
-    private CartegoriaMapper categoriaMapper;
+    private CategoriaMapper categoriaMapper;
 
     public List<CategoriaDTO> listarTodos() {
         return categoriaMapper.toDTOList(categoriaRepository.findAll());
