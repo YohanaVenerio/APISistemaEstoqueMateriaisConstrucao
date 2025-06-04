@@ -1,41 +1,39 @@
-// package com.example.demo.service;
+ package com.example.demo.service;
 
-// import com.example.demo.Entities.Fornecedor;
-// import com.example.demo.repository.IFornecedorRepository;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Service;
+ import com.example.demo.Entities.Fornecedor;
+import com.example.demo.dto.FornecedorDTO;
+import com.example.demo.mapper.FornecedorMapper;
+import com.example.demo.repository.IFornecedorRepository;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Service;
 
-// import java.util.List;
+ import java.util.List;
+import java.util.Optional;
 
-// @Service
-// public class FornecedorService {
+@Service
+public class FornecedorService {
 
-//     @Autowired
-//     private IFornecedorRepository fornecedorRepository;
+    @Autowired
+    private IFornecedorRepository fornecedorRepository;
 
-//     public Fornecedor salvar(Fornecedor fornecedor) {
-//         return fornecedorRepository.save(fornecedor);
-//     }
+    @Autowired
+    private FornecedorMapper fornecedorMapper;
 
-//     public List<Fornecedor> listarTodos() {
-//         return fornecedorRepository.findAll();
-//     }
+    public List<FornecedorDTO> listarTodos() {
+        return fornecedorMapper.toDTOList(fornecedorRepository.findAll());
+    }
 
-//     public Fornecedor buscarPorId(Long id) {
-//         return fornecedorRepository.findById(id)
-//                 .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
-//     }
+    public Optional<FornecedorDTO> buscarPorId(Long id) {
+        return fornecedorRepository.findById(id).map(fornecedorMapper::toDTO);
+    }
 
-//     public Fornecedor atualizar(Long id, Fornecedor fornecedorAtualizado) {
-//         Fornecedor existente = buscarPorId(id);
-//         existente.setNome(fornecedorAtualizado.getNome());
-//         existente.setCnpj(fornecedorAtualizado.getCnpj());
-//         existente.setTelefone(fornecedorAtualizado.getTelefone());
-//         existente.setEmail(fornecedorAtualizado.getEmail());
-//         return fornecedorRepository.save(existente);
-//     }
+    public FornecedorDTO salvar(FornecedorDTO fornecedorDTO) {
+        Fornecedor fornecedor = fornecedorMapper.toEntity(fornecedorDTO);
+        return fornecedorMapper.toDTO(fornecedorRepository.save(fornecedor));
+    }
 
-//     public void deletar(Long id) {
-//         fornecedorRepository.deleteById(id);
-//     }
-// }
+    public void deletar(Long id) {
+        fornecedorRepository.deleteById(id);
+    }
+}
+
