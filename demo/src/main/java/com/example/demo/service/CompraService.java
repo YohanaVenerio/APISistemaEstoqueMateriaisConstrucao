@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entities.Compra;
+import com.example.demo.Entities.Compra.StatusCompra;
 import com.example.demo.Entities.Fornecedor;
 import com.example.demo.Entities.Produto;
 import com.example.demo.dto.CompraDTO;
@@ -50,9 +51,28 @@ public class CompraService {
     }
 
     public CompraDTO salvarCompra(CompraDTO compraDTO) {
-        Compra compra = compraMapper.toEntity(compraDTO);
+    Compra compra = new Compra();
+
+    // Busca o fornecedor e o produto do banco pelo ID
+        Fornecedor fornecedor = fornecedorRepository.findById(compraDTO.getFornecedorId())
+            .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+        
+        Produto produto = produtoRepository.findById(compraDTO.getProdutoId())
+            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        // Define os objetos e campos da compra
+        compra.setFornecedor(fornecedor);
+        compra.setProduto(produto);
+        compra.setQuantidade(compraDTO.getQuantidade());
+        compra.setValorTotal(compraDTO.getValorTotal());
+        compra.setDataCompra(compraDTO.getDataCompra());
+
+        // Define o status padrão da compra (evita erro de valor nulo)
+        compra.setStatusCompra(StatusCompra.PENDENTE); // ou CONCLUIDA/CANCELADA se desejar
+
         return compraMapper.toDTO(compraRepository.save(compra));
     }
+
 
     public void deletarCompra(Long id) {
         compraRepository.deleteById(id);
