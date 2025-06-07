@@ -1,13 +1,15 @@
  package com.example.demo.service;
 
- import com.example.demo.Entities.Fornecedor;
+import com.example.demo.Entities.Compra;
+import com.example.demo.Entities.Fornecedor;
 import com.example.demo.dto.FornecedorDTO;
 import com.example.demo.mapper.FornecedorMapper;
 import com.example.demo.repository.IFornecedorRepository;
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.stereotype.Service;
+import com.example.demo.repository.ICompraRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
- import java.util.List;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +20,10 @@ public class FornecedorService {
 
     @Autowired
     private FornecedorMapper fornecedorMapper;
+
+    @Autowired
+    private ICompraRepository compraRepository;
+
 
     public List<FornecedorDTO> listarTodos() {
         return fornecedorMapper.toDTOList(fornecedorRepository.findAll());
@@ -33,7 +39,11 @@ public class FornecedorService {
     }
 
     public void deletar(Long id) {
+        if (compraRepository.existsByFornecedorId(id)) {
+            throw new IllegalStateException("Não é possível excluir o fornecedor pois existem compras associadas.");
+        }
         fornecedorRepository.deleteById(id);
     }
+
 }
 
