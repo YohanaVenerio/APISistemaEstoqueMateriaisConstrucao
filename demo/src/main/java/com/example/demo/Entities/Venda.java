@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -45,4 +47,14 @@ public class Venda {
 
     @Column(nullable = false)
     private LocalDateTime dataVenda;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusVenda statusVenda;
+
+    public enum StatusVenda {
+        CONCLUIDA,
+        PENDENTE,
+        CANCELADA
+}
 }
