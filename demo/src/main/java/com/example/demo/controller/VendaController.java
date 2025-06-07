@@ -44,5 +44,6 @@ public class VendaController {
     public ResponseEntity<Void> deletarVenda(@PathVariable Long id) {
         vendaService.deletarVenda(id);
         return ResponseEntity.noContent().build();
+
     }
 }
