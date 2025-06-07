@@ -8,6 +8,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,17 +24,18 @@ public class VendaDTO {
     private Long produtoId;
 
     @NotBlank(message = "A quantidade é obrigatória")
-    @Min(value = 0, message = "A quantidade deve ser maior que zero")
+    @Min(value = 1, message = "A quantidade deve ser maior que zero")
     private Integer quantidade;
 
     @NotBlank(message = "O valor total é obrigatório")
-    @DecimalMin(value = "0.0", inclusive = false, message = "O valor total deve ser maior que zero")
+    @DecimalMin(value = "0.01", inclusive = false, message = "O valor total deve ser maior que zero")
     private BigDecimal valorTotal;
 
     @NotBlank(message = "A data da venda é obrigatória")
     private LocalDateTime dataVenda;
 
     @NotBlank(message = "O status da venda é obrigatório")
+    @Pattern(regexp = "^(CONCLUIDA|PENDENTE|CANCELADA)$", message = "Status invalido. Deve ser CONCLUIDA, PENDENTE ou CANCELADA")
     private String statusVenda;
     
     public Long getId() {
