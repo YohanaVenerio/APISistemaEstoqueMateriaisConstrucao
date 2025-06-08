@@ -24,6 +24,12 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @GetMapping
+    public ResponseEntity<List<ClienteDTO>> listarTodas() {
+        List<ClienteDTO> clientes = clienteService.listarTodos();
+        return ResponseEntity.ok(clientes);
+    }
+
     @Operation(summary = "Busca um cliente por ID", description = "Retorna os detalhes de um cliente específico")
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDTO> buscarPorId(@PathVariable Long id) {

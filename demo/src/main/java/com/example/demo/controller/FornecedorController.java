@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.Entities.Fornecedor;
+
 import com.example.demo.dto.FornecedorDTO;
 import com.example.demo.service.FornecedorService;
 import com.example.demo.service.Utils.ApiResponse;
@@ -23,6 +23,12 @@ public class FornecedorController {
 
     @Autowired
     private FornecedorService fornecedorService;
+
+    @GetMapping
+    public ResponseEntity<List<FornecedorDTO>> listarTodas() {
+        List<FornecedorDTO> fornecedores = fornecedorService.listarTodos();
+        return ResponseEntity.ok(fornecedores);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<FornecedorDTO> buscarPorId(@PathVariable Long id) {
