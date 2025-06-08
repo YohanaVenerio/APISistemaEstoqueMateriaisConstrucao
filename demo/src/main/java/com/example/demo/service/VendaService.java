@@ -76,7 +76,7 @@ public class VendaService {
 
     public void deletarVenda(Long id) {
         Venda venda = vendaRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
 
         Produto produto = venda.getProduto();
         produto.setEstoque(produto.getEstoque() + venda.getQuantidade());
