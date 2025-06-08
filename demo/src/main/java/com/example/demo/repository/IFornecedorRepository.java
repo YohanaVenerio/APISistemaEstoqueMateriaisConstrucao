@@ -10,5 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface IFornecedorRepository extends JpaRepository<Fornecedor, Long> {
-
+    boolean existsByCnpj(String cnpj);
+    Optional<Fornecedor> findByCnpj(String cnpj); // Método para buscar fornecedor por CNPJ
 }

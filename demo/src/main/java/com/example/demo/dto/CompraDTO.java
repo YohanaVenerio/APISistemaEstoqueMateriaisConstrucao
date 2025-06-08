@@ -3,9 +3,12 @@ package com.example.demo.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.example.demo.Entities.Compra.StatusCompra;
+
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,25 +17,25 @@ import lombok.NoArgsConstructor;
 public class CompraDTO {
     private Long id;
 
-    @NotBlank(message = "O id do fornecedor é obrigatório")
+    @NotNull(message = "O id do fornecedor é obrigatório")
     private long fornecedorId;
 
-    @NotBlank(message = "O id do produto é obrigatório")
+    @NotNull(message = "O id do produto é obrigatório")
     private Long produtoId;
 
-    @NotBlank(message = "A quantidade é obrigatória")
+    @NotNull(message = "A quantidade é obrigatória")
     @Min(value = 0, message = "A quantidade deve ser maior que 0")
     private Integer quantidade;
 
-    @NotBlank(message = "O valor total é obrigatório")
+    @NotNull(message = "O valor total é obrigatório")
     @DecimalMin(value = "0.0", inclusive = false, message = "O valor total deve ser positivo")
     private BigDecimal valorTotal;
 
-    @NotBlank(message = "A data da Venda é obrigatória")
+    @NotNull(message = "A data da Venda é obrigatória")
     private LocalDateTime dataCompra;
 
-    @NotBlank(message = "O status da compra é obrigatório")
-    private String statusCompra;
+    @NotNull(message = "O status da compra é obrigatório")
+    private StatusCompra statusCompra;
 
     public Long getId() {
         return id;
@@ -82,11 +85,11 @@ public class CompraDTO {
         this.dataCompra = dataCompra;
     }
 
-    public String getStatusCompra() {
+    public StatusCompra getStatusCompra() {
         return statusCompra;
     }
 
-    public void setStatusCompra(String statusCompra) {
+    public void setStatusCompra(StatusCompra statusCompra) {
         this.statusCompra = statusCompra;
     }
     

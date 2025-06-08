@@ -5,9 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.Entities.Venda;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface IVendaRepository extends JpaRepository<Venda, Long>{
+    List<Venda> findByClienteId(Long clienteId);// Método para buscar vendas por ID do cliente
 
 }
