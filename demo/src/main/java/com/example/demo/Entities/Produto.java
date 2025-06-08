@@ -14,11 +14,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @Entity
 @Table(name = "produtos")
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,8 @@ public class Produto {
 
     @Column(nullable = false)
     private String nome;
-    
-    @Column(nullable = false , columnDefinition = "TEXT")
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
     @Column(nullable = false)
@@ -39,5 +39,15 @@ public class Produto {
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
-    
+
+    private int estoque;
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
+
+    }
 }
