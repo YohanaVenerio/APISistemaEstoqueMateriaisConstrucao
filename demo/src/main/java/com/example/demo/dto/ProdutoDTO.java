@@ -27,6 +27,10 @@ public class ProdutoDTO {
     @NotNull(message = "A categoria é obrigatória")
     private Long categoriaId;
 
+    // @NotNull(message = "O estoque é obrigatório")
+    // @Min(value = 0, message = "O estoque não pode ser negativo")
+    // private Integer estoque;
+
     public Long getId() {
         return id;
     }
@@ -75,4 +79,12 @@ public class ProdutoDTO {
         this.categoriaId = categoriaId;
     }
 
+    // public Integer getEstoque() {
+    //     return estoque;
+    // }
+
+    // public void setEstoque(Integer estoque) {
+    //     this.estoque = estoque;
+
+    // }
 }

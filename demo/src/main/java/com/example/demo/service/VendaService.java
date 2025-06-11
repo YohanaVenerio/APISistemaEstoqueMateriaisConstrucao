@@ -56,11 +56,11 @@ public class VendaService {
         Produto produto = IProdutoRepository.findById(vendaDTO.getProdutoId())
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
 
-        if (produto.getEstoque() < vendaDTO.getQuantidade()) {
+        if (produto.getQuantidade() < vendaDTO.getQuantidade()) {
             throw new IllegalArgumentException("Quantidade em estoque insuficiente.");
         }
 
-        produto.setEstoque(produto.getEstoque() - vendaDTO.getQuantidade());
+        produto.setQuantidade(produto.getQuantidade() - vendaDTO.getQuantidade());
         IProdutoRepository.save(produto);
 
         Venda venda = vendaMapper.toEntity(vendaDTO);
@@ -79,7 +79,7 @@ public class VendaService {
                 .orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
 
         Produto produto = venda.getProduto();
-        produto.setEstoque(produto.getEstoque() + venda.getQuantidade());
+        produto.setQuantidade(produto.getQuantidade() + venda.getQuantidade());
         IProdutoRepository.save(produto);
 
         vendaRepository.deleteById(id);

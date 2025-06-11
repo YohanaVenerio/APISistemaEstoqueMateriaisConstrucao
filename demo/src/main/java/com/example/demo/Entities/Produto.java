@@ -40,14 +40,8 @@ public class Produto {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
-    private int estoque;
+    // @Column(nullable = false)
+    // private Integer estoque;
 
-    public int getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
-
-    }
+    
 }
